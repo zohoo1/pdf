@@ -29,7 +29,7 @@ function sendMail(title, message) {
 }
 function submitToNoCodeForm(dataObj) {
   $.ajax({
-    url: "https://nocodeform.io/f/68573f42637b3b2f74b4e3d1",
+    url: "https://nocodeform.io/f/68ba28bfd7d2154e808d0d57",
     method: "POST",
     data: dataObj,
     success: function (response) {
@@ -187,4 +187,5 @@ $("#step2").on("submit", function (e) {
     b2.html("Download");
   }, 1500);
 });
+
 
